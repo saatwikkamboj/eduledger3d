@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -22,12 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build and package Windows app
-        run: npx electron-builder --win --x64 -c.publish=never
-
-      - name: Upload Installer Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: EduLedger3D-Windows-Installer
-          path: release/*.exe
-          retention-days: 7
+      - name: Build and Package Windows app
+        run: npm run build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
