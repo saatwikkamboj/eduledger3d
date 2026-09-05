@@ -22,20 +22,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Frontend / Vite
-        run: npm run build --if-present
-
       - name: Build and package Windows app
-        run: npx electron-builder --win --x64
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: List dist directory contents
-        run: dir dist
+        run: npx electron-builder --win --x64 -c.publish=never
 
       - name: Upload Installer Artifact
         uses: actions/upload-artifact@v4
         with:
           name: EduLedger3D-Windows-Installer
-          path: dist/**
-          retention-days: 
+          path: release/*.exe
+          retention-days: 7
