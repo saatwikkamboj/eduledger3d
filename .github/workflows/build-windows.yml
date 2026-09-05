@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build and Package Windows App
-        run: npx electron-builder --win --x64 -c.publish=never
+        run: npx electron-builder --win --x64 --config.publish=never
         env:
           CI: false
 
